@@ -86,13 +86,14 @@ def find_pairs(population, total_fitness, new_pop):
     propagate(parents, new_pop, total_fitness)
 
 
-def solve(population, total_fitness, init_pop):
-    generation_cap = 500
+def solve(population, total_fitness, init_pop, file):
+    generation_cap = 1000
     for i in range(generation_cap):
         new_pop = []
         for j in range(math.floor(init_pop / 2)):
             find_pairs(population, total_fitness, new_pop)
         total_fitness = get_total_fitness(new_pop)
+        file.write(str(total_fitness/init_pop) + '\n')
         del population
         population = new_pop
         del new_pop
@@ -100,23 +101,25 @@ def solve(population, total_fitness, init_pop):
 
 
 def main():
-    init_pop = 50
+    file = open("data.txt", "w")
+    init_pop = 1000
     population = []
     total_fitness = 0
     for i in range(0, init_pop):
         population.append(generate_state())
         total_fitness += population[i].fitness
-    print("Starting generation:\n")
-    for i in population:
-        print(i.state)
+    # print("Starting generation:\n")
+    # for i in population:
+    #     print(i.state)
     starting_avg = total_fitness / init_pop
-    population, total_fitness = solve(population, total_fitness, init_pop)
-    print("Final generation:\n")
-    for i in population:
-        print(i.state)
-    print("Starting average fitness: ", starting_avg)
-    print("Average fitness: ", total_fitness / init_pop)
+    population, total_fitness = solve(population, total_fitness, init_pop, file)
+   # print("Final generation:\n")
+    # for i in population:
+    #     print(i.state)
+    # print("Starting average fitness: ", starting_avg)
+    print("Average fitness:          ", total_fitness / init_pop)
+    print(f"Average improvement:      {(total_fitness/init_pop) - starting_avg: .2f}")
 
 
 if __name__ == "__main__":
-    main()
+        main()
