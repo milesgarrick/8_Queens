@@ -102,7 +102,7 @@ def solve(population, total_fitness, init_pop, file):
 
 def main():
     file = open("data.txt", "w")
-    init_pop = 1000
+    init_pop = 10
     population = []
     total_fitness = 0
     for i in range(0, init_pop):
@@ -113,7 +113,7 @@ def main():
     #     print(i.state)
     starting_avg = total_fitness / init_pop
     population, total_fitness = solve(population, total_fitness, init_pop, file)
-   # print("Final generation:\n")
+    # print("Final generation:\n")
     # for i in population:
     #     print(i.state)
     # print("Starting average fitness: ", starting_avg)
@@ -122,4 +122,4 @@ def main():
 
 
 if __name__ == "__main__":
-        main()
+    main()
